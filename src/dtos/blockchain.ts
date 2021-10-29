@@ -1,11 +1,12 @@
-import { Min, IsString } from "class-validator"
+import { Min, IsString, IsNumber } from "class-validator"
 
 export class SignMessageDto {
   @IsString()
   recipientAddress!: string
 
+  @IsNumber()
   @Min(0)
-  amount!: number
+  amount!: string
 
   @Min(0)
   nonce!: number

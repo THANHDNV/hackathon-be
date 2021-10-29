@@ -7,9 +7,9 @@ export class User {
   public address!: string;
 
   @prop({
-    default: 0
+    default: '0'
   })
-  public balance?: number;
+  public balance?: string;
 
   @prop({
     default: 0

@@ -8,11 +8,14 @@ import { dbConnection } from '@databases';
 import { Routes } from '@interfaces/routes';
 import errorMiddleware from '@middlewares/error';
 import { logger, stream } from '@utils/logger';
+import BlockchainBackgroundService from './services/blockchain.background';
 
 class App {
   public app: express.Application;
   public port: string | number;
   public env: string;
+
+  private blockchainBackgroundService = new BlockchainBackgroundService()
 
   constructor(routes: Routes[]) {
     this.app = express();
@@ -23,6 +26,7 @@ class App {
     this.initializeMiddlewares();
     this.initializeRoutes(routes);
     this.initializeErrorHandling();
+    this.initializeBackground();
   }
 
   public listen() {
@@ -63,6 +67,10 @@ class App {
 
   private initializeErrorHandling() {
     this.app.use(errorMiddleware);
+  }
+
+  private initializeBackground() {
+    this.blockchainBackgroundService.initialize()
   }
 }
 
