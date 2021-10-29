@@ -1,6 +1,6 @@
 import { HttpException } from "@/exceptions/HttpException";
 import UserModel, { User } from "@models/user";
-import { UserCreateDto, UserUpdateDto } from '@/dtos/user'
+import { CheckHasEnoughBalance, UserCreateDto, UserUpdateDto } from '@/dtos/user'
 import { isEmpty, pick, omit } from 'lodash'
 
 export default class UserService {
@@ -97,5 +97,15 @@ export default class UserService {
     ]))
     await foundUser.save()
     return foundUser
+  }
+
+  public async checkHasEnoughBalance(checkData: CheckHasEnoughBalance) {
+    const foundUser = await this._findUserByAddress(checkData.recipientAddress)
+
+    if ((foundUser.balance || 0) < checkData.amount) {
+      return false
+    }
+
+    return true
   }
 }

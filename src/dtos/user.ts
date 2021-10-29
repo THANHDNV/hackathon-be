@@ -15,3 +15,11 @@ export class UserUpdateDto {
   @Min(0)
   public point?: number;
 }
+
+export class CheckHasEnoughBalance {
+  @IsString()
+  recipientAddress!: string
+
+  @Min(0)
+  amount!: number
+}
