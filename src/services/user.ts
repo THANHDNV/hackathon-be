@@ -33,7 +33,9 @@ export default class UserService {
     }
 
     const foundUser = await this.userModel.findOne({
-      address
+      address: {
+        $regex: new RegExp(address, 'i')
+      }
     })
 
     if (!foundUser) {
