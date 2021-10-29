@@ -9,7 +9,7 @@ export default class UserRoute implements Routes {
 
   private userService = new UserService()
 
-  contructor() {
+  constructor() {
     this.initializeRoutes()
   }
 

@@ -2,7 +2,7 @@ import { prop, getModelForClass } from '@typegoose/typegoose'
 
 export class User {
   @prop({
-    unique: true
+    unique: true,
   })
   public address!: string;
 

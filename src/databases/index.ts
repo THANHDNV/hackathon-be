@@ -5,9 +5,13 @@ interface DBConnection {
   options?: ConnectOptions
 }
 
-const url = process.env.DB_URL ? process.env.DB_URL : `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT || 27017}/${process.env.DB_NAME || 'admin'}?authSource=admin`
+const url = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT || 27017}/?authSource=${process.env.DB_ATHDB || 'admin'}`
 
 export const dbConnection: DBConnection = {
   url,
-  options: {}
+  options: {
+    user: process.env.DB_USER,
+    pass: process.env.DB_PASSWORD,
+    dbName: process.env.DB_NAME || 'admin',
+  }
 }

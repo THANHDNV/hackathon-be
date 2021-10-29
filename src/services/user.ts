@@ -1,7 +1,7 @@
 import { HttpException } from "@/exceptions/HttpException";
 import UserModel, { User } from "@models/user";
 import { UserCreateDto, UserUpdateDto } from '@/dtos/user'
-import { isEmpty, pick } from 'lodash'
+import { isEmpty, pick, omit } from 'lodash'
 
 export default class UserService {
   public userModel = UserModel;
@@ -20,7 +20,10 @@ export default class UserService {
   }
 
   public async findUserByAddress(address: string) {
-    const foundUser: User = (await this._findUserByAddress(address)).toObject()
+    const foundUser: User = omit((await this._findUserByAddress(address)).toObject(), [
+      "_id",
+      "__v"
+    ])
     return foundUser
   }
 
@@ -41,7 +44,10 @@ export default class UserService {
   }
 
   public async createUser(userData: UserCreateDto) {
-    const user: User = (await this._createUser(userData)).toObject()
+    const user: User = omit((await this._createUser(userData)).toObject(), [
+      "_id",
+      "__v"
+    ])
     return user
   }
 
@@ -64,7 +70,10 @@ export default class UserService {
   }
 
   public async updateUser(address: string, userData: UserUpdateDto) {
-    const user: User = (await this._updateUser(address, userData)).toObject()
+    const user: User = omit((await this._updateUser(address, userData)).toObject(), [
+      "_id",
+      "__v"
+    ])
 
     return user
   }
