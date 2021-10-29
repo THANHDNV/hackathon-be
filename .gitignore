@@ -122,8 +122,12 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+
+
 ### Node Patch ###
 # Serverless Webpack directories
 .webpack/
+
+env_variables.yaml
 
 # End of https://www.toptal.com/developers/gitignore/api/node

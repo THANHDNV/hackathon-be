@@ -2,13 +2,15 @@
   "name": "hackathon-be",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/server.js",
   "scripts": {
-    "build": "tsc && npx tsc-alias",
+    "build": "tsc -p . && npx tsc-alias -p .",
     "lint": "eslint --ignore-path .gitignore --ext .ts src/",
     "lint:fix": "npm run lint -- --fix",
     "dev": "cross-env NODE_ENV=development nodemon",
-    "start": "npm run build && cross-env NODE_ENV=production node dist/server.js"
+    "start": "cross-env NODE_ENV=production node dist/server.js",
+    "gcp-build": "tsc -p . && npx tsc-alias -p .",
+    "deploy": "gcloud app deploy ./app.yml"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,7 @@
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "envalid": "^7.2.2",
+    "ethers": "^5.5.1",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
     "hpp": "^0.2.3",
