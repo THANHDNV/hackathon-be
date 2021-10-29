@@ -9,9 +9,6 @@ export class UserCreateDto {
 }
 
 export class UserUpdateDto {
-  @IsString()
-  public address!: string;
-
   @Min(0)
   public balance?: number;
 

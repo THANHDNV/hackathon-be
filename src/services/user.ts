@@ -20,6 +20,11 @@ export default class UserService {
   }
 
   public async findUserByAddress(address: string) {
+    const foundUser: User = (await this._findUserByAddress(address)).toObject()
+    return foundUser
+  }
+
+  private async _findUserByAddress(address: string) {
     if (isEmpty(address)) {
       throw new HttpException(400, "This is not an address")
     }
@@ -36,6 +41,11 @@ export default class UserService {
   }
 
   public async createUser(userData: UserCreateDto) {
+    const user: User = (await this._createUser(userData)).toObject()
+    return user
+  }
+
+  private async _createUser(userData: UserCreateDto) {
     if (isEmpty(userData)) {
       throw new HttpException(400, "Not enough data")
     }
@@ -48,17 +58,27 @@ export default class UserService {
       throw new HttpException(409, "This address has been used")
     }
 
-    const newUser: User = await this.userModel.create(userData)
+    const newUser = await this.userModel.create(userData)
 
     return newUser
   }
 
-  public async updateUser(userData: UserUpdateDto) {
+  public async updateUser(address: string, userData: UserUpdateDto) {
+    const user: User = (await this._updateUser(address, userData)).toObject()
+
+    return user
+  }
+
+  private async _updateUser(address: string, userData: UserUpdateDto) {
+    if (isEmpty(address)) {
+      throw new HttpException(400, "This is not an address")
+    }
+
     if (isEmpty(userData)) {
       throw new HttpException(400, "Not enough data")
     }
 
-    const foundUser = await this.findUserByAddress(userData.address)
+    const foundUser = await this._findUserByAddress(address)
 
     foundUser.set(pick(userData, [
       "balance",

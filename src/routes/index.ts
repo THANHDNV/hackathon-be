@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { Routes } from '@interfaces/routes'
+import UserRoute from './user'
 
 class IndexRoute implements Routes {
   public path = '/';
@@ -20,6 +21,6 @@ class IndexRoute implements Routes {
   }
 }
 
-const routes: Routes[] = [new IndexRoute()]
+const routes: Routes[] = [new IndexRoute(), new UserRoute()]
 
 export default routes
